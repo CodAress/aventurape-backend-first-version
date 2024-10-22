@@ -1,0 +1,4 @@
+package com.upc.aventurape.platform.profiles.domain.model.queries;
+
+public record GetProfileByLocationQuery(String location) {
+}
