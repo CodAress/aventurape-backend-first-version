@@ -19,7 +19,7 @@ La plataforma Aventurape es una API REST diseñada para la aplicacion movil Aven
 ## Requisitos
 
 Para poder ejecutar el proyecto es necesario tener instalado:
--  Java 22
+-  Java 21
 - IntelliJ IDEA o el IDE de tu preferencia
 - PostgreSQL
 
