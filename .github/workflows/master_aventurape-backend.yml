@@ -59,4 +59,10 @@ jobs:
         with:
           app-name: 'aventurape-backend'
           slot-name: 'Production'
-          package: '*.jar'      
+          package: '*.jar'
+      # Pasar variables de entorno al proceso de despliegue
+      - name: Set environment variables
+        run: |
+          echo DATABASE_URL=${{ secrets.DATABASE_URL }} >> $GITHUB_ENV
+          echo DATABASE_USER=${{ secrets.DATABASE_USER }} >> $GITHUB_ENV
+          echo DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }} >> $GITHUB_ENV
