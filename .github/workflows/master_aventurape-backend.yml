@@ -60,4 +60,10 @@ jobs:
           app-name: 'aventurape-backend'
           slot-name: 'Production'
           package: '*.jar'
+      # Verificar si las variables de entorno se están cargando correctamente
+      - name: Verificar variables de entorno en Azure
+        run: |
+          echo "DATABASE_URL=$DATABASE_URL"
+          echo "DATABASE_USER=$DATABASE_USER"
+          echo "DATABASE_PASSWORD=$DATABASE_PASSWORD"
           
