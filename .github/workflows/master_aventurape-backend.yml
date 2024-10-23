@@ -52,6 +52,12 @@ jobs:
           client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_E65FAB8465C04433951F4799C40AA16B }}
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_3BF8367D2518469B9EED82C33412C3C0 }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_DDC036C34D294511957F1FEFE8A99566 }}
+          
+      - name: Print environment variables
+        run: |
+          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}"
+          echo "DATABASE_USER=${{ secrets.DATABASE_USER }}"
+          echo "DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}"
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
@@ -60,9 +66,7 @@ jobs:
           app-name: 'aventurape-backend'
           slot-name: 'Production'
           package: '*.jar'
-      # Pasar variables de entorno al proceso de despliegue
-      - name: Set environment variables
-        run: |
-          echo DATABASE_URL=${{ secrets.DATABASE_URL }} >> $GITHUB_ENV
-          echo DATABASE_USER=${{ secrets.DATABASE_USER }} >> $GITHUB_ENV
-          echo DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }} >> $GITHUB_ENV
+          configuration-file: |
+            DATABASE_URL=${{ secrets.DATABASE_URL }}
+            DATABASE_USER=${{ secrets.DATABASE_USER }}
+            DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}
