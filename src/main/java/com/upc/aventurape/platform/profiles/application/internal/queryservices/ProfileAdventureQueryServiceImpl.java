@@ -1,10 +1,11 @@
 package com.upc.aventurape.platform.profiles.application.internal.queryservices;
 
-import com.upc.aventurape.platform.profiles.domain.model.aggregates.Profile;
 import com.upc.aventurape.platform.profiles.domain.model.aggregates.ProfileAdventurer;
 import com.upc.aventurape.platform.profiles.domain.model.queries.GetAllProfilesAdventurerQuery;
+import com.upc.aventurape.platform.profiles.domain.model.queries.GetProfileAByUserIdQuery;
 import com.upc.aventurape.platform.profiles.domain.model.queries.GetProfileAdventurerByEmailQuery;
 import com.upc.aventurape.platform.profiles.domain.model.queries.GetProfileAdventurerByIdQuery;
+import com.upc.aventurape.platform.profiles.domain.model.valueobjects.UserId;
 import com.upc.aventurape.platform.profiles.domain.services.ProfileAdventureQueryService;
 import com.upc.aventurape.platform.profiles.infrastructure.persistence.jpa.repositories.ProfileRepository;
 import org.springframework.stereotype.Service;
@@ -33,5 +34,9 @@ public class ProfileAdventureQueryServiceImpl implements ProfileAdventureQuerySe
     @Override
     public Optional<ProfileAdventurer> handle(GetProfileAdventurerByEmailQuery query) {
         return profileRepository.findAdventurerByEmail(query.email());
+    }
+    @Override
+    public Optional<ProfileAdventurer> handle(GetProfileAByUserIdQuery query) {
+        return profileRepository.findAdventurerByUserId(new UserId(query.userId()));
     }
 }

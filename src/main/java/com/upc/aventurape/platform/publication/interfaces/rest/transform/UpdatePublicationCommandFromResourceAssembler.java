@@ -6,17 +6,17 @@ import com.upc.aventurape.platform.publication.interfaces.rest.resources.UpdateP
 
 public class UpdatePublicationCommandFromResourceAssembler {
 
-        public static UpdatePublicationCommand toCommandFromResource(UpdatePublicationResource resource) {
-            return new UpdatePublicationCommand(
-                    resource.publicationId(),
-                    resource.entrepreneurId(),
-                    resource.adventure(),
-                    resource.nameActivity(),
-                    resource.description(),
-                    resource.timeDuration(),
-                    resource.image(),
-                    resource.cantPeople(),
-                    resource.cost()
-            );
-        }
+    public static UpdatePublicationCommand toCommandFromResource(
+            Long publicationId, Long entrepreneurId, UpdatePublicationResource resource) {
+        return new UpdatePublicationCommand(
+                publicationId,
+                entrepreneurId,
+                resource.nameActivity(),
+                resource.description(),
+                resource.timeDuration(),
+                resource.image(),
+                resource.cantPeople(),
+                resource.cost()
+        );
+    }
 }

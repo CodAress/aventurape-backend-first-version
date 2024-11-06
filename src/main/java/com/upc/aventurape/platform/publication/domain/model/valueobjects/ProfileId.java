@@ -3,10 +3,10 @@ package com.upc.aventurape.platform.publication.domain.model.valueobjects;
 import jakarta.persistence.Embeddable;
 
 @Embeddable
-public record ProfileId(Long userId) {
+public record ProfileId(Long profileId) {
     public ProfileId {
-        if (userId < 0) {
-            throw new IllegalArgumentException("User id cannot be negative");
+        if (profileId < 0) {
+            throw new IllegalArgumentException("Profile id cannot be negative");
         }
     }
 

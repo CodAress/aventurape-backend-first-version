@@ -1,10 +1,11 @@
 package com.upc.aventurape.platform.profiles.application.internal.queryservices;
 
-import com.upc.aventurape.platform.profiles.domain.model.aggregates.Profile;
 import com.upc.aventurape.platform.profiles.domain.model.aggregates.ProfileEntrepreneur;
 import com.upc.aventurape.platform.profiles.domain.model.queries.GetAllProfilesEntrepreneurQuery;
+import com.upc.aventurape.platform.profiles.domain.model.queries.GetProfileEByUserIdQuery;
 import com.upc.aventurape.platform.profiles.domain.model.queries.GetProfileEntrepreneurByEmailQuery;
 import com.upc.aventurape.platform.profiles.domain.model.queries.GetProfileEntrepreneurByIdQuery;
+import com.upc.aventurape.platform.profiles.domain.model.valueobjects.UserId;
 import com.upc.aventurape.platform.profiles.domain.services.ProfileEntrepreneurQueryService;
 import com.upc.aventurape.platform.profiles.infrastructure.persistence.jpa.repositories.ProfileRepository;
 import org.springframework.stereotype.Service;
@@ -33,5 +34,10 @@ public class ProfileEntrepreneurQueryServiceImpl implements ProfileEntrepreneurQ
     @Override
     public Optional<ProfileEntrepreneur> handle(GetProfileEntrepreneurByEmailQuery query) {
         return profileRepository.findEntrepreneurByEmail(query.email());
+    }
+
+    @Override
+    public Optional<ProfileEntrepreneur> handle(GetProfileEByUserIdQuery query) {
+        return profileRepository.findEntrepreneurByUserId(new UserId(query.userId()));
     }
 }

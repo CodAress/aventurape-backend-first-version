@@ -1,8 +1,8 @@
 package com.upc.aventurape.platform.profiles.domain.services;
 
-import com.upc.aventurape.platform.profiles.domain.model.aggregates.Profile;
 import com.upc.aventurape.platform.profiles.domain.model.aggregates.ProfileAdventurer;
 import com.upc.aventurape.platform.profiles.domain.model.queries.GetAllProfilesAdventurerQuery;
+import com.upc.aventurape.platform.profiles.domain.model.queries.GetProfileAByUserIdQuery;
 import com.upc.aventurape.platform.profiles.domain.model.queries.GetProfileAdventurerByEmailQuery;
 import com.upc.aventurape.platform.profiles.domain.model.queries.GetProfileAdventurerByIdQuery;
 
@@ -13,4 +13,5 @@ public interface ProfileAdventureQueryService {
     List<ProfileAdventurer> handle(GetAllProfilesAdventurerQuery query);
     Optional<ProfileAdventurer> handle(GetProfileAdventurerByIdQuery query);
     Optional<ProfileAdventurer> handle(GetProfileAdventurerByEmailQuery query);
+    Optional<ProfileAdventurer> handle(GetProfileAByUserIdQuery query);
 }

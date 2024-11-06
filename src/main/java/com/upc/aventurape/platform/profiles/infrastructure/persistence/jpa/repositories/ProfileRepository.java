@@ -4,6 +4,7 @@ import com.upc.aventurape.platform.profiles.domain.model.aggregates.Profile;
 import com.upc.aventurape.platform.profiles.domain.model.aggregates.ProfileAdventurer;
 import com.upc.aventurape.platform.profiles.domain.model.aggregates.ProfileEntrepreneur;
 import com.upc.aventurape.platform.profiles.domain.model.valueobjects.EmailAddress;
+import com.upc.aventurape.platform.profiles.domain.model.valueobjects.UserId;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -35,4 +36,10 @@ public interface ProfileRepository extends JpaRepository<Profile, Long> {
 
     @Query("SELECT CASE WHEN EXISTS (SELECT 1 FROM ProfileEntrepreneur p WHERE p.email.address = :email) THEN TRUE ELSE FALSE END FROM ProfileEntrepreneur p")
     Boolean existsEntrepreneurByEmail(@Param("email") String email);
+
+    @Query("SELECT p FROM ProfileAdventurer p WHERE p.userId = :userId")
+    Optional<ProfileAdventurer> findAdventurerByUserId(@Param("userId") UserId userId);
+
+    @Query("SELECT p FROM ProfileEntrepreneur p WHERE p.userId = :userId")
+    Optional<ProfileEntrepreneur> findEntrepreneurByUserId(@Param("userId") UserId userId);
 }

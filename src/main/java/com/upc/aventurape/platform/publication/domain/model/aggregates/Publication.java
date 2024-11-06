@@ -38,13 +38,10 @@ public class Publication extends AuditableAbstractAggregateRoot<Publication> {
     @Embedded
     private CommentManager commentManager;
 
-
     @Column(nullable = false)
     @NotNull
     @Size(max = 1000)
     private String image;
-
-
 
     @Column(nullable = false)
     @NotNull
@@ -76,10 +73,15 @@ public class Publication extends AuditableAbstractAggregateRoot<Publication> {
         this.entrepreneurId = entrepreneurId;
     }
 
+    public double getAverageRating() {
+        return calculateAverageRating(this);
+    }
 
-    public void calculateRating() {
-        double calculatedRating = commentManager.calculateRating(comments);
-        this.rating =calculatedRating;
+    private double calculateAverageRating(Publication publication) {
+        return publication.getComments().stream()
+                .mapToInt(Comment::getRating)
+                .average()
+                .orElse(0.0);
     }
 
     public void addComment(Comment comment) {

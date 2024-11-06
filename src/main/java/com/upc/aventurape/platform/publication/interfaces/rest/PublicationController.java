@@ -7,11 +7,7 @@ import com.upc.aventurape.platform.publication.domain.model.commands.DeletePubli
 import com.upc.aventurape.platform.publication.domain.model.queries.*;
 import com.upc.aventurape.platform.publication.domain.services.PublicationCommandService;
 import com.upc.aventurape.platform.publication.domain.services.PublicationQueryService;
-import com.upc.aventurape.platform.publication.interfaces.rest.resources.AddCommentToPublicationResource;
-import com.upc.aventurape.platform.publication.interfaces.rest.resources.CommentResource;
-import com.upc.aventurape.platform.publication.interfaces.rest.resources.CreatePublicationResource;
-import com.upc.aventurape.platform.publication.interfaces.rest.resources.PublicationResource;
-import com.upc.aventurape.platform.publication.interfaces.rest.resources.UpdatePublicationResource;
+import com.upc.aventurape.platform.publication.interfaces.rest.resources.*;
 import com.upc.aventurape.platform.publication.interfaces.rest.transform.*;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
@@ -60,8 +56,7 @@ public class PublicationController {
             return ResponseEntity.badRequest().build();
         }
         Long entrepreneurId = SecurityUtils.getCurrentUserId();
-        var updatePublicationResource = new UpdatePublicationResource(publicationId, entrepreneurId, resource.adventure(), resource.nameActivity(), resource.description(), resource.timeDuration(), resource.image(), resource.cantPeople(), resource.cost());
-        var updatePublicationCommand = new UpdatePublicationCommandFromResourceAssembler().toCommandFromResource(updatePublicationResource);
+        var updatePublicationCommand = UpdatePublicationCommandFromResourceAssembler.toCommandFromResource(publicationId, entrepreneurId, resource);
         Optional<Publication> publicationOptional = publicationCommandService.handle(updatePublicationCommand);
         if (publicationOptional.isEmpty()) {
             return ResponseEntity.badRequest().build();
@@ -150,4 +145,18 @@ public class PublicationController {
                 .collect(Collectors.toList());
         return new ResponseEntity<>(commentResources, HttpStatus.OK);
     }
+
+    @GetMapping("/order-by-rating/{entrepreneurId}")
+    public ResponseEntity<List<PublicationByOrderResource>> getFavoritePublicationsByProfileIdOrderedByRating(@PathVariable Long entrepreneurId) {
+        if (entrepreneurId == null) {
+            return ResponseEntity.badRequest().build();
+        }
+        GetFavoritePublicationsByProfileIdOrderedByRatingQuery query = new GetFavoritePublicationsByProfileIdOrderedByRatingQuery(entrepreneurId);
+        List<Publication> publications = publicationQueryService.handle(query);
+        List<PublicationByOrderResource> publicationResources = publications.stream()
+                .map(PublicationByOrderResourceFromEntityAssembler::toResourceFromEntity)
+                .collect(Collectors.toList());
+        return new ResponseEntity<>(publicationResources, HttpStatus.OK);
+    }
+
 }

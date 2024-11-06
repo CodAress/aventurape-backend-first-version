@@ -44,4 +44,5 @@ public class Comment {
         this.rating = rating;
         this.adventureId = SecurityUtils.getCurrentUserId();
     }
+
 }

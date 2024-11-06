@@ -2,6 +2,7 @@ package com.upc.aventurape.platform.publication.application.internal.commandserv
 
 import com.upc.aventurape.platform.publication.domain.model.aggregates.Publication;
 import com.upc.aventurape.platform.publication.domain.model.commands.CreateFavoritePublicationCommand;
+import com.upc.aventurape.platform.publication.domain.model.commands.DeleteFavoriteCommand;
 import com.upc.aventurape.platform.publication.domain.model.entities.Favorite;
 import com.upc.aventurape.platform.publication.domain.model.valueobjects.ProfileId;
 import com.upc.aventurape.platform.publication.domain.services.FavoritePublicationCommandService;
@@ -24,5 +25,10 @@ public class FavoritePublicationCommandServiceImpl implements FavoritePublicatio
         publication.setId(publication.getId());
         Favorite favorite = new Favorite(profileIdVO, publication);
         return favoritePublicationRepository.save(favorite);
+    }
+
+    @Override
+    public void handle(DeleteFavoriteCommand command) {
+        favoritePublicationRepository.deleteById(command.id());
     }
 }

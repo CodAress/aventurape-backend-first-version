@@ -7,7 +7,7 @@ public class FavoritePublicationResourceFromEntityAssembler {
     public static FavoriteResource toResourceFromEntity(Favorite entity) {
         return new FavoriteResource(
                 entity.getId(),
-                entity.getProfileid().userId(),
+                entity.getProfileId().profileId(),
                 entity.getPublication().getId()
         );
     }

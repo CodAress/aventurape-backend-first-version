@@ -19,12 +19,12 @@ public class Adventure extends AuditableModel {
 
     @Column(nullable = false)
     @NotNull
-    @Size(max = 50)
+    @Size(max = 500)
     private String nameActivity;
 
     @Column(nullable = false)
     @NotNull
-    @Size(max = 50)
+    @Size(max = 600)
     private String description;
 
     @Column(nullable = false)

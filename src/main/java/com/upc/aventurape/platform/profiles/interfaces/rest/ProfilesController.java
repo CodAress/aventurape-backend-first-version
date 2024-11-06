@@ -5,10 +5,7 @@ import com.upc.aventurape.platform.profiles.domain.model.aggregates.ProfileAdven
 import com.upc.aventurape.platform.profiles.domain.model.aggregates.ProfileEntrepreneur;
 import com.upc.aventurape.platform.profiles.domain.model.commands.CreateProfileAdventurerCommand;
 import com.upc.aventurape.platform.profiles.domain.model.commands.CreateProfileEntrepreneurCommand;
-import com.upc.aventurape.platform.profiles.domain.model.queries.GetAllProfilesAdventurerQuery;
-import com.upc.aventurape.platform.profiles.domain.model.queries.GetAllProfilesEntrepreneurQuery;
-import com.upc.aventurape.platform.profiles.domain.model.queries.GetProfileAdventurerByIdQuery;
-import com.upc.aventurape.platform.profiles.domain.model.queries.GetProfileEntrepreneurByIdQuery;
+import com.upc.aventurape.platform.profiles.domain.model.queries.*;
 import com.upc.aventurape.platform.profiles.domain.services.ProfileAdventureCommandService;
 import com.upc.aventurape.platform.profiles.domain.services.ProfileAdventureQueryService;
 import com.upc.aventurape.platform.profiles.domain.services.ProfileEntrepreneurCommandService;
@@ -22,6 +19,8 @@ import com.upc.aventurape.platform.profiles.interfaces.rest.transform.CreateProf
 import com.upc.aventurape.platform.profiles.interfaces.rest.transform.ProfileAdventurerResourceFromEntityAssembler;
 import com.upc.aventurape.platform.profiles.interfaces.rest.transform.ProfileEntrepreneurResourceFromEntityAssembler;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -106,5 +105,26 @@ public class ProfilesController {
                 .map(ProfileEntrepreneurResourceFromEntityAssembler::toResourceFromEntity)
                 .toList();
         return new ResponseEntity<>(profileResources, HttpStatus.OK);
+    }
+    @GetMapping("/adventurer/user/{userId}")
+    public ResponseEntity<Object> getProfileAByUserId(@PathVariable Long userId) {
+        var getProfileAByUserIdQuery = new GetProfileAByUserIdQuery(userId);
+        var profile = profileAdventureQueryService.handle(getProfileAByUserIdQuery);
+        if (profile.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        var profileAdventurerResource = ProfileAdventurerResourceFromEntityAssembler.toResourceFromEntity(profile.get());
+        return new ResponseEntity<>(profileAdventurerResource, HttpStatus.OK);
+    }
+
+    @GetMapping("/entrepreneur/user/{userId}")
+    public ResponseEntity<Object> getProfileEByUserId(@PathVariable Long userId) {
+        var getProfileEByUserIdQuery = new GetProfileEByUserIdQuery(userId);
+        var profile = profileEntrepreneurQueryService.handle(getProfileEByUserIdQuery);
+        if (profile.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        var profileEntrepreneurResource = ProfileEntrepreneurResourceFromEntityAssembler.toResourceFromEntity(profile.get());
+        return new ResponseEntity<>(profileEntrepreneurResource, HttpStatus.OK);
     }
 }

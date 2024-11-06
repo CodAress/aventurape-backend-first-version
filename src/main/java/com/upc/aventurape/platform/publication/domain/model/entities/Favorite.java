@@ -18,7 +18,7 @@ public class Favorite {
 
     @Column(name = "profile_id")
     @Embedded
-    private ProfileId profileid;
+    private ProfileId profileId;
 
     @ManyToOne
     @JoinColumn(name = "publication_id", nullable = false)
@@ -26,8 +26,8 @@ public class Favorite {
 
     public Favorite() {}
 
-    public Favorite(ProfileId profileid, Publication publication) {
-        this.profileid = profileid;
+    public Favorite(ProfileId profileId, Publication publication) {
+        this.profileId = profileId;
         this.publication = publication;
     }
 }

@@ -62,6 +62,7 @@ public class AuthenticationController {
     return ResponseEntity.ok(authenticatedUserResource);
   }
 
+
   /**
    * Handles the sign-up request.
    * @param signUpResource the sign-up request body.

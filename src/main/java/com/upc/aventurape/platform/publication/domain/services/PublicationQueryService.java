@@ -17,4 +17,7 @@ public interface PublicationQueryService {
     List<Comment> handle(GetAllCommentsQuery query);
     Optional<List<Comment>> handle(GetCommentsByPublicationIdQuery query);
     Optional<Adventure> handle(GetAdventureByPublicationIdQuery query);
+    // New method to handle the query
+    List<Publication> handle(GetFavoritePublicationsByProfileIdOrderedByRatingQuery query);
+
 }
