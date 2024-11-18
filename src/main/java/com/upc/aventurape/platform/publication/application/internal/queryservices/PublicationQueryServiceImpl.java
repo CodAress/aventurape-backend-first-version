@@ -43,7 +43,7 @@ public class PublicationQueryServiceImpl implements PublicationQueryService {
     public List<Comment> handle(GetAllCommentsQuery query) {
         return publicationRepository.findAll().stream()
                 .flatMap(publication -> publication.getComments().stream())
-                .collect(java.util.stream.Collectors.toList());
+                .collect(Collectors.toList());
     }
 
     @Override

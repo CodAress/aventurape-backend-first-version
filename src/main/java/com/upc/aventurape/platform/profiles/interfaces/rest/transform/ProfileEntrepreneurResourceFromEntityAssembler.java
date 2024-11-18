@@ -10,8 +10,12 @@ public class ProfileEntrepreneurResourceFromEntityAssembler {
                 entity.getId(),
                 userId,
                 entity.getName(),
-                entity.getEmailAddress(),
-                entity.getStreetAddress()
-        );
+                entity.getCity(),
+                entity.getCountry(),
+                entity.getNumber(),
+                entity.getPostalCode(),
+                entity.getStreetAddress(),
+                entity.getEmailAddress()
+                );
     }
 }

@@ -4,7 +4,11 @@ public record ProfileEntrepreneurResource(
         Long id,
         Long userId,
         String name,
-        String email,
-        String streetAddress
+        String city,
+        String country,
+        String number,
+        String postalCode,
+        String streetAddress,
+        String emailAddress
 ) {
 }
